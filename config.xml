@@ -3,8 +3,8 @@
 <!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "com.phonegap.thmphylab"
-        version   = "1.0.10">    
+        id        = "com.phonegap.thmphylabfast"
+        version   = "1.0.11">    
 
     <name>THM PhyLab FAST</name>
 
