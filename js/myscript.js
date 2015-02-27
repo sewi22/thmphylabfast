@@ -40,11 +40,12 @@
 
     $.mobile.document.on("touchend", "#contextMenuBackButton", function(e) {
         e.preventDefault();
-        if( $(".ui-panel").hasClass("ui-panel-open") == true ){
+        //if( $(".ui-panel").hasClass("ui-panel-open") == true ){
             $("#expListContextMenu").panel("close");
-        }else{
-            $("#expListContextMenu").panel("open");
-        }        
+            $("#expPageContextMenu").panel("close");
+        //}else{
+          //  $("#expListContextMenu").panel("open");
+        //}        
     });
 
     // Mark actual Exp as Favorite
@@ -67,7 +68,7 @@
     });
 
     // Open QR Code Reader and using callback values by scanning a QR Code Button    
-    $.mobile.document.on("touchend", "contextMenuQrButton", function(e){
+    $.mobile.document.on("touchend", "#contextMenuQrButton", function(e){
         e.preventDefault();
         var scanner = cordova.require("cordova/plugin/BarcodeScanner");
         scanner.scan( function (result) {
@@ -87,7 +88,7 @@
         e.preventDefault();
         var next = '#' + $.mobile.activePage.next('[data-role=page]')[0].id;                
         if(e.handled !== true){
-            $(':mobile-pagecontainer').pagecontainer('change', next, {transition: 'slide', reverse: false});
+            $(':mobile-pagecontainer').pagecontainer('change', next);//, {transition: 'none', reverse: false});
             e.handled = true;
         }    
     });
@@ -96,7 +97,7 @@
         e.preventDefault();        
         var prev = '#' + $.mobile.activePage.prev('[data-role=page]')[0].id;
         if(e.handled !== true){
-            $(':mobile-pagecontainer').pagecontainer('change', prev, {transition: 'slide', reverse: true});
+            $(':mobile-pagecontainer').pagecontainer('change', prev);//, {transition: 'none', reverse: true});
             e.handled = true;
         }        
     });
@@ -104,22 +105,22 @@
     $.mobile.document.on('touchend', '#footerNavbarItemQuiz', function(e){
         e.preventDefault();
         if(!$(this).hasClass('ui-state-persist')){
-            $(':mobile-pagecontainer').pagecontainer('change', '#quizPage', {transition: 'slide', reverse: false});
+            $(':mobile-pagecontainer').pagecontainer('change', '#quizPage');//, {transition: 'none', reverse: false});
         }        
     });
     // Click on Details Tab
     $.mobile.document.on('touchend', '#footerNavbarItemDetails', function(e){
         e.preventDefault();
         if(!$(this).hasClass('ui-state-persist')){
-            $(':mobile-pagecontainer').pagecontainer('change', '#expDetailsPage', {transition: 'slide', reverse: true});
+            $(':mobile-pagecontainer').pagecontainer('change', '#expDetailsPage');//, {transition: 'none', reverse: true});
         }        
     });
         
     function addExpListContextMenuButton(page){
-        $('#'+page+' [data-role="header"]').append('<a id="expListContextMenuButton" data-role="button" data-icon="bars" class="ui-btn-right" style="margin-top:-5px;" href="#">Menü</a>').trigger("create");
+        $('#'+page+' [data-role="header"]').append('<a id="expListContextMenuButton" data-role="button" data-icon="bars" class="ui-btn-right" href="#">Menü</a>').trigger("create");
     }
     function addExpPageContextMenuButton(page){
-        $('#'+page+' [data-role="header"]').append('<a id="expPageContextMenuButton" data-role="button" data-icon="bars" class="ui-btn-right" style="margin-top:-5px;" href="#">Menü</a>').trigger("create");
+        $('#'+page+' [data-role="header"]').append('<a id="expPageContextMenuButton" data-role="button" data-icon="bars" class="ui-btn-right" href="#">Menü</a>').trigger("create");
     }
 
     function fillExpListContextMenu(){
@@ -178,7 +179,7 @@
         e.preventDefault();        
         var next = '#' + $.mobile.activePage.next('[data-role=page]')[0].id;
         if(e.handled !== true){
-            $(':mobile-pagecontainer').pagecontainer('change', next, {transition: 'slide', reverse: false});
+            $(':mobile-pagecontainer').pagecontainer('change', next);//, {transition: 'none', reverse: false});
             e.handled = true;
         }        
     });
@@ -186,7 +187,7 @@
     $.mobile.document.on('touchend', '#footerNavbarItemListFav', function(e){
         e.preventDefault();
         if(!$(this).hasClass('ui-state-persist')){
-            $(':mobile-pagecontainer').pagecontainer('change', '#expListFavPage', {transition: 'slide', reverse: false});
+            $(':mobile-pagecontainer').pagecontainer('change', '#expListFavPage');//, {transition: 'none', reverse: false});
         }        
     });
     // Swipe on expListFavPage to Right
@@ -194,7 +195,7 @@
         e.preventDefault();
         var prev = '#' + $.mobile.activePage.prev('[data-role=page]')[0].id;
         if(e.handled !== true){
-            $(':mobile-pagecontainer').pagecontainer('change', prev, {transition: 'slide', reverse: true});
+            $(':mobile-pagecontainer').pagecontainer('change', prev);//, {transition: 'none', reverse: true});
             e.handled = true;
         }        
     });
@@ -202,7 +203,7 @@
     $.mobile.document.on('touchend', '#footerNavbarItemListAll', function(e){
         e.preventDefault();
         if(!$(this).hasClass('ui-state-persist')){
-            $(':mobile-pagecontainer').pagecontainer('change', '#expListAllPage', {transition: 'slide', reverse: true});
+            $(':mobile-pagecontainer').pagecontainer('change', '#expListAllPage');//, {transition: 'none', reverse: true});
         }        
     });
  
