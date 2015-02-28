@@ -141,12 +141,12 @@
                         answersArr = shuffle(answersArr);
                         $("#quizContent").append('<div data-role="controlgroup"><fieldset id="quizCheckboxGroup" data-role="controlgroup"></fieldset></div>');
 
-                        for(var i=0;i<answersArr.length;i++){
-                            var a = answersArr[i];
-                            //$.each(answersArr, function(i, a) {
+                        //for(var i=0;i<answersArr.length;i++){
+                          //  var a = answersArr[i];
+                            $.each(answersArr, function(i, a) {
                                 $("#quizCheckboxGroup").append('<input type="checkbox" name="quizCheckbox" id="quizCheckbox-'+a.id+'" value="'+a.id+'" questionId="'+question.id+'" /><label for="quizCheckbox-'+a.id+'">'+a.answer+'</label>').enhanceWithin();
-                            //});
-                        }
+                            });
+                        //}
 
 
                         $("#quizContent").append('<a href="#" data-role="button" data-questiontype="mc" id="quizCheckButton">Antwort pr&uuml;fen</a>').enhanceWithin();

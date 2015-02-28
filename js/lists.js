@@ -24,7 +24,7 @@
         });
     }
 
-    function createExpListFav(){
+    function createExpListFav(){        
         getFavExp(function (res){
             for(var e=0; e<res.length; e++){
                 var exp = res.item(e);

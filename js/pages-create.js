@@ -51,6 +51,11 @@
         addExpListContextMenuButton(e.target.id);
         //addExpListContextMenu(e.target.id);
     });
+    // Aktualisierung der Favoritenliste
+    $.mobile.document.on('pagebeforeshow', '#expListFavPage', function(e) {
+        e.preventDefault();
+        createExpListFav();
+    });
     
     // LocalStoragePage
     // Show all Contents from LocalStorage on one Page for control
