@@ -20,13 +20,24 @@
             //$.mobile.defaultPageTransition = 'slide';
         });
         </script>
-        <script type="text/javascript" src="js/jquery/jquery.mobile-1.4.5.min.js"></script>                              
+        <script type="text/javascript" src="js/jquery/jquery.mobile-1.4.5.min.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="barcodescanner.js"></script>
+
+        <script type="text/javascript" src="js/myscript.js"></script>
+        <script type="text/javascript" src="js/dev.js"></script>
+        <script type="text/javascript" src="js/db-init.js"></script>
+        <script type="text/javascript" src="js/db-transactions.js"></script>
+        <script type="text/javascript" src="js/pages-create.js"></script>
+        <script type="text/javascript" src="js/lists.js"></script>
+        <script type="text/javascript" src="js/helper.js"></script>
+        <script type="text/javascript" src="js/quiz.js"></script>                              
     </head>
     
     <body>    
         <!-- Start Screen -->
         <div data-role="page" id="startPage">
-            <div data-role="content" id="startContent"><p>THM PhyLab</p><img src='css/images/start-loader.gif'/></div>
+            <div data-role="content" id="startContent"><p>THM PhyLab</p><img src='css/images/start-loader.gif' alt="Loading"/></div>
         </div><!-- Start Screen -->        
         
         <!-- Experiment All List -->        
@@ -66,25 +77,11 @@
             <div id="quizHeader" data-role="header" data-position="fixed" data-theme="a" data-id="exp-header">                
                 <h1 id="quizHeadline"></h1>
             </div>
-            <div data-role="content" id="quizContent"></div>
+            <div data-role="content" id="quizContent">        
+            </div>
             <div id="expQuizFooter" data-role="footer" data-theme="a" data-position="fixed" data-id="exp-footer"></div>
         </div><!-- Quiz Page -->        
-        
-        
-        
-        
-        <!-- Übersicht LocalStorage Inhalt -->        
-        <div data-role="page" id="localStoragePage">
-            <div id="localStorageHeader" data-role="header" data-position="fixed" data-theme="a" data-id="exp-header">
-                <h1 id="expLocalStorageHeadline"></h1>
-            </div>
-            <div data-role="content" id="localStorageContent">
-                <p>Inhalte des LocalStorage:</p>
-                <a href="#" id="addLsButton" data-role="button" data-icon="check">zu LocalStorage hinzuf&uuml;gen</a>
-                <a href="#" id="delLsButton" data-role="button" data-icon="check">LocalStorage l&ouml;schen</a>
-            </div>
-        </div><!-- Übersicht LocalStorage Inhalt -->	        
-   
+            
         
         <!-- Exp List Header Context Menu -->
         <div data-role="panel" id="expListContextMenu" data-theme="b" data-display="overlay" data-position="right">
@@ -105,21 +102,10 @@
                 <a href="#" class="sure-do" data-role="button" data-theme="b" data-rel="back">Yes</a>
                 <a href="#" class="sure-no" data-role="button" data-theme="c" data-rel="back">No</a>
             </div>
-        </div--><!-- Confirm Dialog -->
-       
+        </div--><!-- Confirm Dialog -->      
         
         <!-- JS Libs -->        
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="barcodescanner.js"></script>
-
-        <script type="text/javascript" src="js/myscript.js"></script>
-        <script type="text/javascript" src="js/dev.js"></script>
-        <script type="text/javascript" src="js/db-init.js"></script>
-        <script type="text/javascript" src="js/db-transactions.js"></script>
-        <script type="text/javascript" src="js/pages-create.js"></script>
-        <script type="text/javascript" src="js/lists.js"></script>
-        <script type="text/javascript" src="js/helper.js"></script>
-        <script type="text/javascript" src="js/quiz.js"></script>           
+          
         <!-- JS Libs -->    
     </body>
 

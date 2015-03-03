@@ -1,5 +1,6 @@
+
     // Create QuizPage before show
-    $.mobile.document.on('pagebeforeshow', '#quizPage', function(e) {
+    $(document).on('pagebeforeshow', '#quizPage', function(e) {
         var expGroupNumber = localStorage.getItem("expGroupNumber");
         var expNumber = localStorage.getItem("expNumber");
         $("#quizContent").empty();
@@ -124,11 +125,10 @@
                 $("#quizContent").append(question.question);
 
                 if (question.questionType == "mc") {
-                    // Darstellung einer MC Frage
-
+                    // Darstellung einer MC Frage                    
                     getQuestionsAnswers(question.id, function(answers){
                         answersArr = [];
-
+                        //alert("NNN");
                         for(var a=0; a<answers.length; a++){
                             answersArr[a] = new Array();
                             answersArr[a].id = answers.item(a).id;
@@ -139,17 +139,30 @@
                         }
 
                         answersArr = shuffle(answersArr);
-                        $("#quizContent").append('<div data-role="controlgroup"><fieldset id="quizCheckboxGroup" data-role="controlgroup"></fieldset></div>');
+                        //var abc = "";
+                        //abc += '<div data-role="controlgroup"><fieldset id="quizCheckboxGroup" data-role="controlgroup">';
+                        //abc += '<form><fieldset id="quizCheckboxGroup" data-role="controlgroup">';
+                        $("#quizContent").append('<fieldset id="quizCheckboxGroup" data-role="controlgroup"></fieldset>');//.enhanceWithin();
 
-                        //for(var i=0;i<answersArr.length;i++){
-                          //  var a = answersArr[i];
-                            $.each(answersArr, function(i, a) {
-                                $("#quizCheckboxGroup").append('<input type="checkbox" name="quizCheckbox" id="quizCheckbox-'+a.id+'" value="'+a.id+'" questionId="'+question.id+'" /><label for="quizCheckbox-'+a.id+'">'+a.answer+'</label>').enhanceWithin();
-                            });
-                        //}
+                        //$.each(answersArr, function(i, a) {
+                        for(var i=0; i<answersArr.length; i++){ 
+                            //console.log(a);                                                                          
+                            var a = answersArr[i];                            
+                            //$("#quizCheckboxGroup").append('<input type="checkbox" name="quizCheckbox" id="quizCheckbox-'+a.id+'" value="'+a.id+'" questionId="'+question.id+'" /><label for="quizCheckbox-'+a.id+'">'+a.answer+'</label>').enhanceWithin();
+                            $("#quizCheckboxGroup").append('<input type="checkbox" name="quizCheckbox-'+a.id+'" id="quizCheckbox-'+a.id+'" value="'+a.id+'" questionId="'+question.id+'"><label for="quizCheckbox-'+a.id+'">'+a.answer+'</label>').trigger('create');//.enhanceWithin();
+                            //abc += '<input type="checkbox" name="quizCheckbox-'+a.id+'" id="quizCheckbox-'+a.id+'" value="'+a.id+'" questionId="'+question.id+'"><label for="quizCheckbox-'+a.id+'">'+a.answer+'</label>'; 
+                        }
+                        
+                        //abc += '</fieldset></div>';
+                        //abc += '</fieldset></form>';                                                                                                                                                                                                                                       $('[type="checkbox"]').checkboxradio();
+                        //$("#quizCheckboxGroup").enhanceWithin();//.trigger("create");//enhanceWithin();//.controlgroup("refresh");
 
+                        $("input[type='checkbox']").checkboxradio("refresh");
 
-                        $("#quizContent").append('<a href="#" data-role="button" data-questiontype="mc" id="quizCheckButton">Antwort pr&uuml;fen</a>').enhanceWithin();
+                        $("#quizContent").append('<a href="#" data-role="button" data-questiontype="mc" id="quizCheckButton">Antwort pr&uuml;fen</a>');//.enhanceWithin();
+                        //abc += '<a href="#" data-role="button" data-questiontype="mc" id="quizCheckButton">Antwort pr&uuml;fen</a>';
+                        
+                        //$("#quizContent").append(abc).enhanceWithin();
                     });
                 } else if (question.questionType == "text") {
                     // Darstellung einer Freitext Frage
@@ -168,18 +181,25 @@
     });
 
 
+    /*
+    $(document).on('pageload', '#quizPage', function(e) {
+        console.log($("#quizResultList"));
+        console.log("Anzahl richtige Antworten: "+$(".rightanswer").length);
+        console.log($("#quizResultList").length);
+    });
+    */
+
     // Auswertung einer Frage bei Click n quizCheckButton
-    $.mobile.document.on("click", "#quizCheckButton", function(){
+    $(document).on("click", "#quizCheckButton", function(){
 
         var quiztype = $("#quizCheckButton").attr("data-questiontype");
 
-        if (quiztype == "mc") {
-
+        if (quiztype == "mc") {            
             // TODO: Auswertung der MC Fragen
             var answerIds = [];
-            var questionId = $('input[name=quizCheckbox]:checked', '#quizCheckboxGroup').attr('questionId');
+            var questionId = $('input[type=checkbox]:checked', '#quizCheckboxGroup').attr('questionId');
 
-            $("input:checkbox[name=quizCheckbox]:checked").each(function() {
+            $("input:checkbox[type=checkbox]:checked").each(function() {
                 answerIds.push($(this).val());
             });
 
@@ -216,7 +236,7 @@
                 });
 
                 $("#quizCheckButton").remove();
-                $("#quizContent").append('<a href="#quizPage" data-role="button" id="quizNextButton">Weiter</a>').enhanceWithin();
+                $("#quizContent").append('<a href="#quizPage" data-role="button" id="quizNextButton">Weiter</a>');//.enhanceWithin();
 
             } else {
                 // TODO: anderen Dialog nutzen, kein Alert
@@ -299,12 +319,12 @@
 
 
     // Click on quizNextButton
-    $.mobile.document.on("click", "#quizNextButton", function(){
+    $(document).on("click", "#quizNextButton", function(){
         $('#quizPage').trigger('pagebeforeshow');
     });
 
     // Reset der beantworteten Fragen in der DB
-    $.mobile.document.on("click", "#quizResetButton", function(){
+    $(document).on("click", "#quizResetButton", function(){
 
         // TODO: Confirm Dialog ändern. Bisheriger Dialog ruft jedoch mehrfach den Trigger "pagebeforeshow" auf.
         var r = confirm("Quiz zurücksetzen?");

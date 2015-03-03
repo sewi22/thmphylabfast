@@ -54,7 +54,7 @@
                             "helpText" => "Falsch"
                         )
                     )
-                ),            
+                )/*,            
                 array(
                     'question' => 'Ab welcher Temperatur kocht Wasser?',
                     'questionType' => 'number',
@@ -66,14 +66,14 @@
                     'question' => 'Welches ist das wertvollste Unternehmen der Welt?',
                     'questionType' => 'text',
                     'answers' => array('A pP?lE')
-                )
+                )  */
             )
         ),
         array(
             'expGroupNumber' => 1,
             'expNumber' => 2,
             'questions' => array(
-                array(
+                /*array(
                     'question' => 'Wieviele Bundesl&auml;nder hat Deutschland?',
                     'questionType' => 'number',
                     'answers' => array(16)                    
@@ -82,7 +82,7 @@
                     'question' => 'Wieviele Monate haben 28 Tage?',
                     'questionType' => 'text',
                     'answers' => array('Jeder ', 'al-le')                    
-                ),
+                ), */
                 array(
                     'question' => 'Welche deutsche Stadt hat derzeit keinen Fu&szlig;ball Erstligisten?',
                     'questionType' => 'mc',
