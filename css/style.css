@@ -61,6 +61,10 @@
     margin: auto;   
  }
 
+ .ui-content-no-top-padding {
+     padding-top: 0px;
+ }
+
  .ui-panel-inner {
     padding:0px;
  }

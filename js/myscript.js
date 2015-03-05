@@ -4,12 +4,14 @@
         fillExpTables();
         fillQuestionTables();
     });
+    
          
     $(function () {
         $("[data-role=panel]").enhanceWithin().panel();
     });
     
-    // Decision if going back in history or exiting app by clicking the "Back Button"
+    
+    // Decision if going back in history or exiting app by clicking the hardware "Back Button"
     $.mobile.document.on("click", "backbutton", function(e){
         e.preventDefault();
         var $ap = $(document).pagecontainer("getActivePage");
@@ -21,7 +23,7 @@
     });
 
 
-    $.mobile.document.on("touchend", "#expListContextMenuButton", function(e) {
+    $.mobile.document.on("touchend mouseup", "#expListContextMenuButton", function(e) {
         e.preventDefault();
         if( $(".ui-panel").hasClass("ui-panel-open") == true ){
             $("#expListContextMenu").panel("close");
@@ -29,7 +31,7 @@
             $("#expListContextMenu").panel("open");
         }        
     });
-    $.mobile.document.on("touchend", "#expPageContextMenuButton", function(e) {
+    $.mobile.document.on("touchend mouseup", "#expPageContextMenuButton", function(e) {
         e.preventDefault();
         if( $(".ui-panel").hasClass("ui-panel-open") == true ){
             $("#expPageContextMenu").panel("close");
@@ -38,38 +40,27 @@
         }
     });
 
-    $.mobile.document.on("touchend", "#contextMenuBackButton", function(e) {
-        e.preventDefault();
-        //if( $(".ui-panel").hasClass("ui-panel-open") == true ){
-            $("#expListContextMenu").panel("close");
-            $("#expPageContextMenu").panel("close");
-        //}else{
-          //  $("#expListContextMenu").panel("open");
-        //}        
+    $.mobile.document.on("touchend mouseup", "#contextMenuBackButton", function(e) {
+        e.preventDefault();        
+        closeContextMenu();        
     });
 
     // Mark actual Exp as Favorite
-    $.mobile.document.on("touchend", "#contextMenuFavButton", function(e){
+    $.mobile.document.on("touchend mouseup", "#contextMenuFavButton", function(e){
         e.preventDefault();
         expGroupNumber = localStorage.getItem("expGroupNumber");
         expNumber = localStorage.getItem("expNumber");
 
         getExpIsFav(expGroupNumber, expNumber, function(result){
             var expIsFav = (result.expIsFav == 0) ? 1 : 0;
-            console.log(expIsFav);
             setExpIsFav(expIsFav, expGroupNumber, expNumber, function(){});            
         });
-        if( $(".ui-panel").hasClass("ui-panel-open") == true ){
-            $("#expPageContextMenu").panel("close");
-        }else{
-            $("#expPageContextMenu").panel("open");
-        }
-                
+        closeContextMenu();        
     });
 
     // Open QR Code Reader and using callback values by scanning a QR Code Button    
-    $.mobile.document.on("touchend", "#contextMenuQrButton", function(e){
-        e.preventDefault();
+    $.mobile.document.on("touchend mouseup", "#contextMenuQrButton", function(e){
+        e.preventDefault();        
         var scanner = cordova.require("cordova/plugin/BarcodeScanner");
         scanner.scan( function (result) {
             alert("Scanner result: \n" +
@@ -78,7 +69,8 @@
             "cancelled: " + result.cancelled + "\n");
         },function (error) {
             console.log("Scanning failed: ", error);
-        });        
+        });
+        closeContextMenu();
     });
 
 
@@ -125,9 +117,7 @@
 
     function fillExpListContextMenu(){
         var links = "";
-        links += '<a href="#" id="contextMenuBackButton" data-theme="a" data-role="button">zurück</a>';
-        //links += '<a href="#" data-role="button">als Favorit</a>';
-        //links += '<a href="#localStoragePage" data-role="button">LocalStorage</a>';
+        links += '<a href="#" id="contextMenuBackButton" data-theme="a" data-role="button">zurück</a>';               
         links += '<a href="#" id="contextMenuQrButton"data-role="button">QR Reader</a>';
         //links += '<a href="#" data-role="button">Impressum</a>';
         $('#expListContextMenuControlgroup').controlgroup("container").append(links);
@@ -137,8 +127,7 @@
     function fillExpDetailsContextMenu(){
         var links = "";
         links += '<a href="#" id="contextMenuBackButton" data-theme="a" data-role="button">zurück</a>';
-        links += '<a href="#" id="contextMenuFavButton" data-role="button">als Favorit</a>';
-        //links += '<a href="#localStoragePage" data-role="button">LocalStorage</a>';
+        links += '<a href="#" id="contextMenuFavButton" data-role="button">als Favorit</a>';        
         links += '<a href="#" id="contextMenuQrButton" data-role="button">QR Reader</a>';
         //links += '<a href="#" data-role="button">Impressum</a>';
         $('#expDetailsContextMenuControlgroup').controlgroup("container").append(links);
@@ -146,17 +135,21 @@
     }
 
     function addExpFooterNavbar(page){
-        var navbar, navbarId, footerId, addClassAll, addClassFav = "";
+        var navbar, navbarId, footerId, addClassAll, addClassFav = "";        
         if (page == "expDetailsPage"){
             navbarId = "#expDetailsNavbar"; footerId = "#expDetailsFooter";
             classDetails = ' class="ui-btn-active ui-state-persist"';
-            classQuiz = '';
+            classQuiz = ''; classFaq = '';
+        } else if (page == "faqPage"){
+            navbarId = "#expFaqNavbar"; footerId = "#expFaqFooter";
+            classDetails = ''; classQuiz = '';
+            classFaq = ' class="ui-btn-active ui-state-persist"';
         } else if (page == "quizPage"){
             navbarId = "#expQuizNavbar"; footerId = "#expQuizFooter";
-            classDetails = '';
+            classDetails = ''; classFaq = '';
             classQuiz = ' class="ui-btn-active ui-state-persist"';
         }
-        var navbar = $('<div id="'+navbarId+'" class="expPageNavbar" data-role="navbar" data-iconpos="bottom"><ul><li><a id="footerNavbarItemDetails" href="#expDetailsPage" data-theme="a" data-icon="grid"'+classDetails+'>Details</a></li><li><a id="footerNavbarItemQuiz" href="#quizPage" data-theme="a" data-icon="star"'+classQuiz+'>Quiz</a></li></ul></div>').appendTo(footerId);
+        var navbar = $('<div id="'+navbarId+'" class="expPageNavbar" data-role="navbar" data-iconpos="bottom"><ul><li><a id="footerNavbarItemDetails" href="#expDetailsPage" data-theme="a" data-icon="info"'+classDetails+'>Details</a></li><li><a id="footerNavbarItemFaq" href="#faqPage" data-theme="a" data-icon="comment"'+classFaq+'>FAQ</a></li><li><a id="footerNavbarItemQuiz" href="#quizPage" data-theme="a" data-icon="check"'+classQuiz+'>Quiz</a></li></ul></div>').appendTo(footerId);
         $(footerId).append(navbar).trigger('create');
     }
     
@@ -169,7 +162,7 @@
         } else if (page == "expListFavPage"){
             navbarId = "#expListFavNavbar";footerId = "#expListFavFooter";addClassAll = ''; addClassFav = 'class="ui-btn-active ui-state-persist"';
         }
-        var navbar = $('<div id="'+navbarId+'" class="expListNavbar" data-role="navbar" data-iconpos="bottom"><ul><li><a id="footerNavbarItemListAll" href="#expListAllPage" '+addClassAll+' data-theme="a" data-icon="grid">Alle</a></li><li><a id="footerNavbarItemListFav" href="#expListFavPage" '+addClassFav+' data-theme="a" data-icon="star">Favoriten</a></li></ul></div>').appendTo(footerId);
+        var navbar = $('<div id="'+navbarId+'" class="expListNavbar" data-role="navbar" data-iconpos="bottom"><ul><li><a id="footerNavbarItemListAll" href="#expListAllPage" '+addClassAll+' data-theme="a" data-icon="bullets">Alle</a></li><li><a id="footerNavbarItemListFav" href="#expListFavPage" '+addClassFav+' data-theme="a" data-icon="star">Favoriten</a></li></ul></div>').appendTo(footerId);
         $(footerId).append(navbar).trigger('create');
     }  
     

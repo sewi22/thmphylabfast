@@ -4,7 +4,7 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.phonegap.thmphylabfast"
-        version   = "1.0.14">    
+        version   = "1.0.15">    
 
     <name>THM PhyLab FAST</name>
 
@@ -67,14 +67,12 @@
     <gap:plugin name="org.apache.cordova.vibration" />
 
     <!-- Third party plugins -->
-    <!-- A list of available plugins are available at https://build.phonegap.com/plugins -->
-    <!--
-        <gap:plugin name="com.phonegap.plugins.barcodescanner" />
-    -->
-    <!-- gap:plugin name="com.phonegap.plugins.barcodescanner" version="1.1.0" / -->
-    <!-- gap:plugin name="com.phonegap.plugins.barcodescanner" version="1.2.0" / -->
+    <!-- A list of available plugins are available at https://build.phonegap.com/plugins -->    
     <gap:plugin name="com.phonegap.plugins.barcodescanner" version="2.0.0" />
-    <!--gap:plugin name="com.brodysoft.sqliteplugin" version="1.0.0" /-->
+    <gap:plugin name="com.phonegap.plugins.facebookconnect" version="0.9.0">
+        <param name="APP_ID" value="642904912480427" />
+        <param name="APP_NAME" value="THM PhyLab" />
+    </gap:plugin>
 
     <!-- Define app icon for each platform. -->
     <icon src="icon.png" />

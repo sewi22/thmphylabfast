@@ -9,21 +9,21 @@
             'expNumber' => 1,
             'questions' => array(              
                 array(
-                    'question' => 'Wer war erster Bundeskanzler der BRD?',
+                    'question' => 'Welches Obst schmeckt am besten?',
                     'questionType' => 'mc',
                     'answers' => array(
                         array(
-                            "answer" => "Adenauer",
+                            "answer" => "Apfel",
                             "correct" => true,                
                             "helpText" => "Das ist richtig"
                         ),
                         array(
-                            "answer" => "Kohl",
+                            "answer" => "Banane",
                             "correct" => false,
                             "helpText" => "Stimmt nicht"
                         ),
                         array(
-                            "answer" => "Heuss",
+                            "answer" => "Orange",
                             "correct" => false,
                             "helpText" => "Stimmt nicht"
                         )
@@ -54,7 +54,7 @@
                             "helpText" => "Falsch"
                         )
                     )
-                )/*,            
+                ),            
                 array(
                     'question' => 'Ab welcher Temperatur kocht Wasser?',
                     'questionType' => 'number',
@@ -65,15 +65,15 @@
                 array(
                     'question' => 'Welches ist das wertvollste Unternehmen der Welt?',
                     'questionType' => 'text',
-                    'answers' => array('A pP?lE')
-                )  */
+                    'answers' => array('Apple')
+                )
             )
         ),
         array(
             'expGroupNumber' => 1,
             'expNumber' => 2,
             'questions' => array(
-                /*array(
+                array(
                     'question' => 'Wieviele Bundesl&auml;nder hat Deutschland?',
                     'questionType' => 'number',
                     'answers' => array(16)                    
@@ -81,8 +81,8 @@
                 array(
                     'question' => 'Wieviele Monate haben 28 Tage?',
                     'questionType' => 'text',
-                    'answers' => array('Jeder ', 'al-le')                    
-                ), */
+                    'answers' => array('Jeder', 'alle', '12', 'zw&ouml;lf')                    
+                ),
                 array(
                     'question' => 'Welche deutsche Stadt hat derzeit keinen Fu&szlig;ball Erstligisten?',
                     'questionType' => 'mc',
@@ -103,9 +103,9 @@
                             "helpText" => "Stimmt nicht"
                         ),
                         array(
-                            "answer" => "M&uuml;nchen",
-                            "correct" => false,
-                            "helpText" => "Nat&uuml;rlich haben alle Monate 28 Tage"
+                            "answer" => "Leipzig",
+                            "correct" => true,
+                            "helpText" => "Das wird auch so bleiben"
                         )
                     )
                 ),

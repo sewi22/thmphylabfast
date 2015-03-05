@@ -3,6 +3,8 @@
     $(document).on('pagebeforeshow', '#quizPage', function(e) {
         var expGroupNumber = localStorage.getItem("expGroupNumber");
         var expNumber = localStorage.getItem("expNumber");
+        var headline = expGroupNumber+"."+expNumber;
+        $("#quizHeadline").html(headline);
         $("#quizContent").empty();
         getQuizQuestions(expGroupNumber, expNumber, function(questions){
 
@@ -125,44 +127,40 @@
                 $("#quizContent").append(question.question);
 
                 if (question.questionType == "mc") {
-                    // Darstellung einer MC Frage                    
-                    getQuestionsAnswers(question.id, function(answers){
-                        answersArr = [];
-                        //alert("NNN");
-                        for(var a=0; a<answers.length; a++){
-                            answersArr[a] = new Array();
-                            answersArr[a].id = answers.item(a).id;
-                            answersArr[a].answer = answers.item(a).answer;
-                            answersArr[a].correct = answers.item(a).answerIsCorrect;
-                            answersArr[a].help = answers.item(a).helpText;
-                            answersArr[a].questionId = answers.item(a).questionId;
-                        }
-
+            
+                    getQuestionsAnswers(question.id, function(answers){                        
+                        answersArr = new Array();                        
+                        for(var a=0; a<answers.length; a++){                            
+                            //answersArr[a] = new Array();
+                            //console.log(answers.item(a));
+                            answersArr[a] = {
+                                id: answers.item(a).id,
+                                answer: answers.item(a).answer,
+                                answerIsCorrect: answers.item(a).answerIsCorrect,
+                                helpText: answers.item(a).helpText,
+                                questionId: answers.item(a).questionId
+                            }
+                        }                                                                 
                         answersArr = shuffle(answersArr);
-                        //var abc = "";
-                        //abc += '<div data-role="controlgroup"><fieldset id="quizCheckboxGroup" data-role="controlgroup">';
-                        //abc += '<form><fieldset id="quizCheckboxGroup" data-role="controlgroup">';
-                        $("#quizContent").append('<fieldset id="quizCheckboxGroup" data-role="controlgroup"></fieldset>');//.enhanceWithin();
-
-                        //$.each(answersArr, function(i, a) {
-                        for(var i=0; i<answersArr.length; i++){ 
-                            //console.log(a);                                                                          
+                        
+                        //console.log(answersArr);                                                
+                        answersArray = new Array();
+                        answersArray[0] = {id:1, answer:"Kirschen", answerIsCorrect:0, helpText:"Falsch", questionId:2}
+                        answersArray[1] = {id:2, answer:"Trauben", answerIsCorrect:0, helpText:"Falsch", questionId:2}
+                        answersArray[2] = {id:3, answer:"Erdbeeren", answerIsCorrect:1, helpText:"Richtig", questionId:2}
+                        //console.log(answersArray);                        
+                                                
+                        var html = '';                        
+                        html += '<fieldset id="quizCheckboxGroup" data-role="controlgroup">';                        
+                        
+                        for(var i=0; i<answersArr.length; i++){                                                                                                                                  
                             var a = answersArr[i];                            
-                            //$("#quizCheckboxGroup").append('<input type="checkbox" name="quizCheckbox" id="quizCheckbox-'+a.id+'" value="'+a.id+'" questionId="'+question.id+'" /><label for="quizCheckbox-'+a.id+'">'+a.answer+'</label>').enhanceWithin();
-                            $("#quizCheckboxGroup").append('<input type="checkbox" name="quizCheckbox-'+a.id+'" id="quizCheckbox-'+a.id+'" value="'+a.id+'" questionId="'+question.id+'"><label for="quizCheckbox-'+a.id+'">'+a.answer+'</label>').trigger('create');//.enhanceWithin();
-                            //abc += '<input type="checkbox" name="quizCheckbox-'+a.id+'" id="quizCheckbox-'+a.id+'" value="'+a.id+'" questionId="'+question.id+'"><label for="quizCheckbox-'+a.id+'">'+a.answer+'</label>'; 
+                            html += '<input type="checkbox" name="quizCheckbox-'+a.id+'" id="quizCheckbox-'+a.id+'" value="'+a.id+'" questionId="'+question.id+'"><label for="quizCheckbox-'+a.id+'">'+a.answer+'</label>'; 
                         }
-                        
-                        //abc += '</fieldset></div>';
-                        //abc += '</fieldset></form>';                                                                                                                                                                                                                                       $('[type="checkbox"]').checkboxradio();
-                        //$("#quizCheckboxGroup").enhanceWithin();//.trigger("create");//enhanceWithin();//.controlgroup("refresh");
-
-                        $("input[type='checkbox']").checkboxradio("refresh");
-
-                        $("#quizContent").append('<a href="#" data-role="button" data-questiontype="mc" id="quizCheckButton">Antwort pr&uuml;fen</a>');//.enhanceWithin();
-                        //abc += '<a href="#" data-role="button" data-questiontype="mc" id="quizCheckButton">Antwort pr&uuml;fen</a>';
-                        
-                        //$("#quizContent").append(abc).enhanceWithin();
+                                            
+                        html += '</fieldset>';                                                                                                                                                                                                                                       $('[type="checkbox"]').checkboxradio();
+                        html += '<a href="#" data-role="button" data-questiontype="mc" id="quizCheckButton">Antwort pr&uuml;fen</a>';                        
+                        $("#quizContent").append(html).enhanceWithin();
                     });
                 } else if (question.questionType == "text") {
                     // Darstellung einer Freitext Frage
@@ -179,15 +177,6 @@
             }
         });
     });
-
-
-    /*
-    $(document).on('pageload', '#quizPage', function(e) {
-        console.log($("#quizResultList"));
-        console.log("Anzahl richtige Antworten: "+$(".rightanswer").length);
-        console.log($("#quizResultList").length);
-    });
-    */
 
     // Auswertung einer Frage bei Click n quizCheckButton
     $(document).on("click", "#quizCheckButton", function(){
@@ -236,7 +225,7 @@
                 });
 
                 $("#quizCheckButton").remove();
-                $("#quizContent").append('<a href="#quizPage" data-role="button" id="quizNextButton">Weiter</a>');//.enhanceWithin();
+                $("#quizContent").append('<a href="#quizPage" data-role="button" id="quizNextButton">Weiter</a>').enhanceWithin();
 
             } else {
                 // TODO: anderen Dialog nutzen, kein Alert

@@ -14,7 +14,7 @@
     }
     function fillExpTables(){
         $.ajax({
-            url: "http://winterling.net/thmphylab/exp.php",
+            url: "http://winterling.net/thmphylab/data/exp.php",
             jsonp: "callback",
             dataType: "jsonp",
             data: {
@@ -47,18 +47,17 @@
                         })(i);
                     }
                 });
-                createExpListAll();
-                createExpListFav();
+                createExpListAll();                
             },
             error: function(err){
-                console.log('Error on JSON Request: '+err.code);
-                alert('Error on JSON Request: '+err.code);
+                console.log('Fehler beim Laden der Versuchsdaten: '+err.code);
+                alert('Fehler beim Laden der Versuchsdaten: '+err.code);
             }
         });
     }
     function fillQuestionTables(){
         $.ajax({
-            url: "http://winterling.net/thmphylab/quiz.php",
+            url: "http://winterling.net/thmphylab/data/quiz.php",
             jsonp: "callback",
             dataType: "jsonp",
             data: {
@@ -108,8 +107,8 @@
                 });
             },
             error: function(err){
-                console.log('Error on JSON Request: '+err.code);
-                alert('Error on JSON Request: '+err.code);
+                console.log('Fehler beim Laden der Quizdaten: '+err.code);
+                alert('Fehler beim Laden der Quizdaten: '+err.code);
             }
         });
     }
